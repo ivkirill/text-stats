@@ -5,7 +5,7 @@ import sys
 import traceback
 from pathlib import Path
 
-from io_utils import read_lines
+from io_utils import read_document
 from report import build_report
 
 
@@ -24,13 +24,13 @@ def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
 
     try:
-        lines = read_lines(Path(args.path))
+        document = read_document(Path(args.path))
     except OSError:
         # Dump the whole failure while the tool is still young.
         traceback.print_exc()
         return
 
-    print(build_report(lines))
+    print(build_report(document))
 
 
 if __name__ == "__main__":

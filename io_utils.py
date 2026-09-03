@@ -7,6 +7,8 @@ without a file on disk.
 
 from pathlib import Path
 
+from document import Document
+
 #: Refuse to read anything larger than this, in bytes.
 MAX_FILE_BYTES = 5_000_000
 
@@ -36,3 +38,8 @@ def read_text(path: Path) -> str:
 def read_lines(path: Path) -> list[str]:
     """Read ``path`` and return its contents split into lines."""
     return read_text(path).splitlines()
+
+
+def read_document(path: Path) -> Document:
+    """Read ``path`` into the shared document model."""
+    return Document.from_path(path)

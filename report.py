@@ -1,8 +1,9 @@
-"""Turn a list of lines into the report the command-line tool prints.
+"""Turn a document into the report the command-line tool prints.
 
 This is the only module that decides what the output looks like.
 """
 
+from document import Document
 from stats import count_blank_lines, count_characters, count_lines, count_words
 
 #: Every statistic the report shows, in the order it shows them, as
@@ -15,9 +16,11 @@ STATISTICS = {
 }
 
 
-def collect_stats(lines: list[str]) -> dict[str, int]:
-    """Run every statistic over ``lines`` and return them by name."""
-    return {key: function(lines) for key, (_, function) in STATISTICS.items()}
+def collect_stats(document: Document) -> dict[str, int]:
+    """Run every statistic over ``document`` and return them by name."""
+    return {
+        key: function(document) for key, (_, function) in STATISTICS.items()
+    }
 
 
 def format_text(stats: dict[str, int]) -> str:
@@ -27,6 +30,6 @@ def format_text(stats: dict[str, int]) -> str:
     return "\n".join(rows)
 
 
-def build_report(lines: list[str]) -> str:
-    """Collect the statistics for ``lines`` and format them for a terminal."""
-    return format_text(collect_stats(lines))
+def build_report(document: Document) -> str:
+    """Collect statistics for ``document`` and format them for a terminal."""
+    return format_text(collect_stats(document))
