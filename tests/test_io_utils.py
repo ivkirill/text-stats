@@ -31,3 +31,13 @@ def test_read_lines_splits_on_line_breaks(tmp_path):
     path.write_bytes(b"one\n\nthree\n")
 
     assert io_utils.read_lines(path) == ["one", "", "three"]
+
+
+def test_read_document_returns_the_shared_model(tmp_path):
+    path = tmp_path / "document.txt"
+    path.write_text("one\ntwo\n", encoding="utf-8")
+
+    document = io_utils.read_document(path)
+
+    assert document.text == "one\ntwo\n"
+    assert document.lines == ("one", "two")
