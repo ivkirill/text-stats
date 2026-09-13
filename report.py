@@ -1,6 +1,6 @@
-"""Turn a list of lines into the report the command-line tool prints.
+"""Turn a list of lines into the standard report the command-line tool prints.
 
-This is the only module that decides what the output looks like.
+This module decides what the standard multi-statistic report looks like.
 """
 
 from stats import count_blank_lines, count_characters, count_lines, count_words
